@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jill & Jerry Wedding Day | 洪丞賦 & 汪芷帆</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF6EE',
+                        'cream-card': '#F4EFE6',
+                        sage: '#8A9A86',
+                        'sage-light': '#E3E8E0',
+                        'sage-dark': '#5C6B58',
+                        wine: '#5C2C2E',
+                        'earth-brown': '#4A2E2B',
+                        gold: '#C5A880',
+                        'dusty-blue': '#93A8B1',
+                        'dusty-grey': '#D2C9BD'
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif TC', 'serif'],
+                        english: ['Cormorant Garamond', 'Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF6EE;
+            color: #4A2E2B;
+            font-family: 'Noto Serif TC', serif;
+            overflow-x: hidden;
+        }
+
+        /* Arch Shapes for Photo Frame */
+        .arch-card {
+            border-top-left-radius: 160px;
+            border-top-right-radius: 160px;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out, opacity 0.25s ease-in-out;
+            opacity: 0;
+        }
+        .accordion-content.active {
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A880;
+            border-radius: 4px;
+        }
+
+        .tab-btn.active {
+            color: #5C2C2E;
+            border-bottom: 2px solid #5C2C2E;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sage/30">
+
+    <header class="sticky top-0 z-50 bg-[#FAF6EE]/90 backdrop-blur-md border-b border-gold/20 shadow-sm transition-all duration-300">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <div class="text-center sm:text-left cursor-pointer" onclick="switchTab('home')">
+                <span class="font-english text-2xl md:text-3xl font-semibold tracking-wider text-wine">Jill & Jerry</span>
+                <span class="block text-xs font-english tracking-widest text-gold text-center sm:text-left -mt-1">CHOSEN FOREVER</span>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex items-center space-x-2 md:space-x-6 text-sm md:text-base">
+                <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2.5 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    婚禮邀請
+                </button>
+                <button onclick="switchTab('faq')" id="tab-faq" class="tab-btn px-2.5 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    問與答 FAQ
+                </button>
+                <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2.5 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    交通資訊
+                </button>
+                <button onclick="switchTab('firm')" id="tab-firm" class="tab-btn px-2.5 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    廠商介紹
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 md:py-10">
+
+        <!-- Page Home -->
+        <section id="page-home" class="space-y-10">
+            <!-- Hero Card -->
+            <div class="relative bg-cream-card rounded-3xl p-6 md:p-10 border border-gold/30 shadow-sm overflow-hidden text-center">
+                <div class="text-xs font-english tracking-widest text-gold uppercase mb-2">10th OCT. 2026</div>
+                <h1 class="font-english text-3xl md:text-5xl text-wine mb-2">Cheng Fu & Chih Fan</h1>
+                <p class="text-sm md:text-base text-earth-brown/80 mb-6 font-serif">洪丞賦 <span class="text-gold mx-1">&</span> 汪芷帆</p>
+
+                <!-- Cover Image Arch Container -->
+                <div class="my-6 max-w-md mx-auto relative flex flex-col items-center">
+                    <div class="arch-card bg-[#FAF6EE] p-3 border-2 border-gold/40 shadow-md w-full max-w-sm flex flex-col items-center overflow-hidden">
+                        <div class="w-full h-80 sm:h-96 rounded-t-[140px] overflow-hidden relative shadow-inner bg-sage/10">
+                            <!-- Hero Image (pointing to 1.jpg) -->
+                            <img id="heroImage" src="1.jpg" alt="Jill & Jerry Photo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x800/EADBFA/5C2C2E?text=Jill+%26+Jerry';">
+                        </div>
+                        <div class="mt-4 font-english text-2xl text-wine font-medium">Jill & Jerry</div>
+                        <div class="text-xs font-english tracking-widest text-gold mb-2">CHOSEN FOREVER</div>
+                    </div>
+                </div>
+
+                <!-- Key Details Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-2xl mx-auto text-sm">
+                    <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                        <i class="fa-regular fa-calendar-check text-sage text-xl mb-2"></i>
+                        <div class="font-bold text-wine">宴客日期</div>
+                        <div class="text-earth-brown mt-1">2026 年 10 月 10 日</div>
+                        <div class="text-xs text-gold">星期六 18:00 準時入席</div>
+                    </div>
+                    <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                        <i class="fa-solid fa-location-dot text-sage text-xl mb-2"></i>
+                        <div class="font-bold text-wine">宴客地點</div>
+                        <div class="text-earth-brown mt-1">君品 Collection</div>
+                        <div class="text-xs text-earth-brown/80">淡水豪邸嘉廬</div>
+                    </div>
+                    <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                        <i class="fa-solid fa-users text-sage text-xl mb-2"></i>
+                        <div class="font-bold text-wine">主婚人</div>
+                        <div class="text-xs text-earth-brown/80 mt-1">男方：洪寬諒 蔡佳玲</div>
+                        <div class="text-xs text-earth-brown/80">女方：汪政義 高麗萍</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown Box -->
+            <div class="bg-sage/15 rounded-3xl p-6 text-center border border-sage/30">
+                <h3 class="font-english text-2xl text-wine mb-4">Wedding Countdown</h3>
+                <div class="flex justify-center gap-3 sm:gap-6 text-wine" id="countdown">
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="days" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">天 Days</span>
+                    </div>
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="hours" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">時 Hours</span>
+                    </div>
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="minutes" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">分 Mins</span>
+                    </div>
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="seconds" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">秒 Secs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warm Invitation Statement -->
+            <div class="bg-cream-card rounded-3xl p-8 border border-gold/30 text-center space-y-4">
+                <div class="inline-block px-4 py-1 rounded-full bg-sage/20 text-sage-dark text-xs font-semibold tracking-wider uppercase">
+                    Sincerely Invited
+                </div>
+                <p class="leading-relaxed text-earth-brown max-w-lg mx-auto text-sm md:text-base">
+                    兩隻可愛的小夥伴陪伴著我們，記錄著最真實美好的時光。<br>
+                    在這個特別的日子裡，誠摯邀請您來到美麗的淡水河畔，<br>
+                    與我們一同分享愛、笑聲與微醺的美好夜晚！
+                </p>
+                <div class="pt-4 flex justify-center gap-4">
+                    <button onclick="switchTab('map')" class="px-6 py-2.5 rounded-full bg-wine text-cream hover:bg-wine/90 transition shadow-md text-sm font-medium">
+                        <i class="fa-solid fa-map-location-dot mr-2"></i>查看交通指引
+                    </button>
+                    <button onclick="switchTab('faq')" class="px-6 py-2.5 rounded-full bg-sage text-cream hover:bg-sage/90 transition shadow-md text-sm font-medium">
+                        <i class="fa-solid fa-circle-question mr-2"></i>婚禮常見問題
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page FAQ -->
+        <section id="page-faq" class="hidden space-y-6">
+            <div class="text-center mb-8">
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Information & Help</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮常見問題 FAQ</h2>
+                <p class="text-sm text-earth-brown/80 mt-2">點擊下方問題可展開查看詳細資訊</p>
+            </div>
+
+            <div class="space-y-4 max-w-3xl mx-auto">
+                <!-- Q1: Contacts -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q1</span>
+                            當天臨時有狀況，我該聯繫誰？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3">
+                            婚禮當天新人正忙於準備與彩排，可能無法隨時接聽電話。<br>
+                            若您現場找不到宴會廳、臨時有狀況或遲到，請聯繫我們現場的窗口：
+                            <div class="mt-4 bg-[#FAF6EE] p-4 rounded-xl border border-gold/20 flex flex-col sm:flex-row gap-4 justify-around text-sm font-medium">
+                                <div class="flex items-center gap-2 text-wine">
+                                    <i class="fa-solid fa-phone text-sage"></i>
+                                    <span><strong>汪妹 電話：</strong><a href="tel:0953681638" class="underline hover:text-gold">0953681638</a></span>
+                                </div>
+                                <div class="flex items-center gap-2 text-wine">
+                                    <i class="fa-solid fa-phone text-sage"></i>
+                                    <span><strong>洪姐 電話：</strong><a href="tel:0989100318" class="underline hover:text-gold">0989100318</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2: Vegetarian Food -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q2</span>
+                            有素食的需求，如何告知？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p class="font-bold text-wine">我們非常重視每位賓客的飲食習慣！</p>
+                            <p>餐廳將會為您準備個人專屬素食套餐。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Parking -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q3</span>
+                            有提供停車位嗎？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p>園區內不開放停放賓客愛車，建議可停至鄰近的停車場！</p>
+                            <ul class="list-disc pl-5 space-y-1 text-xs md:text-sm">
+                                <li><span class="font-bold text-wine">P1 滬尾藝文休閒園區停車場</span></li>
+                                <li><span class="font-bold text-wine">P2 新北市路邊停車格</span></li>
+                                <li><span class="font-bold text-wine">P3 紅毛城停車場</span></li>
+                                <li><span class="font-bold text-wine">P4 和平公園停車場</span></li>
+                                <li><span class="font-bold text-wine">P5 城市車旅停車場</span></li>
+                                <div class="bg-gold/10 p-3 rounded-xl text-xs text-wine border border-gold/30 mt-2">
+                                    <i class="fa-solid fa-circle-info mr-1"></i> 以上停車場，停好車散步過來只要 3-5 分鐘，非常近又可以散步看夕陽！
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4: Transportation -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q4</span>
+                            搭乘大眾運輸，怎麼走最方便？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p class="font-bold text-wine">搭乘捷運淡水線至「淡水捷運站」：</p>
+                            <div class="bg-[#FAF6EE] p-3 rounded-xl border border-gold/20 text-xs space-y-1.5">
+                                <div>🚌 <strong>在捷運 2 號出口搭乘：</strong> <span class="text-wine font-bold">紅26、836</span></div>
+                                <div>🚌 <strong>或是捷運站對面搭乘：</strong> <span class="text-wine font-bold">F112, 757, 837, 857, 870, 872, 880, 883</span></div>
+                                <div>📍 <strong>下車地點：</strong> 請於 <span class="bg-sage/20 px-1.5 py-0.5 rounded font-bold text-wine">[獸醫研究所]</span> 或 <span class="bg-sage/20 px-1.5 py-0.5 rounded font-bold text-wine">[滬尾砲台]</span> 站下車，步行 1-2 分鐘即達。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5: Dress Code -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q5</span>
+                            拍照背板和穿搭的色調？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-3">
+                            <p>本次婚禮會場設計以「溫暖奶油與淡水植物綠意」為基調，歡迎大家穿著舒適、優雅的 Smart Casual 服飾參與！</p>
+                            
+                            <!-- Color Palette Display -->
+                            <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                                <div class="text-xs font-english tracking-widest text-gold mb-2 font-bold uppercase">Dress Code Palette 色票參考</div>
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#FAF6EE] border-2 border-gold shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">米白暖色 Warm Off-White</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#93A8B1] border border-white shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">霧藍 Dusty Blue</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#8A9A86] border border-white shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">鼠尾草綠 Sage</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#5C2C2E] border border-white shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">深酒紅 Wine Red</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6: Ceremony Time -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q6</span>
+                            證婚儀式幾點開始？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p>我們的證婚儀式於17:00開始，現場座位有限，先搶先贏，晚來只能站著看我們放閃囉！</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Map -->
+        <section id="page-map" class="hidden space-y-8">
+            <div class="text-center">
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Location & Map</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮地點與交通地圖</h2>
+                <p class="text-sm text-earth-brown/80 mt-1">君品 Collection - 淡水豪邸嘉廬（新北市淡水區中正路382號）</p>
+            </div>
+
+            <!-- Fixed Embedded Google Map -->
+            <div class="bg-cream-card p-4 rounded-3xl border border-gold/30 shadow-sm space-y-3">
+                <div class="text-xs font-english text-gold uppercase tracking-wider text-center font-bold">
+                    <i class="fa-solid fa-map-location-dot mr-1"></i> Google Maps Navigation
+                </div>
+                <div class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-gold/20 shadow-inner">
+                    <iframe 
+                        title="Google Map Venue Location"
+                        src="https://maps.google.com/maps?q=%E6%96%B0%E5%8C%97%E5%B8%82%E6%B7%A1%E6%B0%B4%E5%8D%80%E4%B8%AD%E6%AD%A3%E8%B7%AF382%E8%99%9B&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="text-center pt-2">
+                    <a href="https://maps.google.com/?q=新北市淡水區中正路382號" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-wine text-cream hover:bg-wine/90 transition shadow-md text-sm font-medium">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 在 Google 地圖開啟全螢幕導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Illustrated Map Graphic -->
+            <div class="bg-cream-card p-4 md:p-6 rounded-3xl border border-gold/30 shadow-sm relative overflow-hidden">
+                <div class="text-xs text-center font-english text-gold mb-3 uppercase tracking-wider font-bold">
+                    <i class="fa-solid fa-square-parking mr-1"></i> 周邊停車與地圖指示圖 (Parking Map)
+                </div>
+
+                <!-- Detailed Parking Breakdown with Direct Navigation Buttons -->
+                <div class="mt-6 space-y-3">
+                    <h3 class="font-bold text-wine text-base border-b border-gold/20 pb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-parking text-sage mr-2"></i>周邊停車場對照 (點擊可開啟地圖導航)</span>
+                        <span class="text-xs text-gold font-normal">P1 ~ P5</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm text-earth-brown">
+                        
+                        <!-- P1 -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=滬尾藝文休閒園區停車場" target="_blank" class="bg-[#FAF6EE] hover:bg-sage-light/50 transition p-3 rounded-xl border border-gold/20 flex items-center justify-between group shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold group-hover:bg-wine transition">P1</span>
+                                <div>
+                                    <div class="font-bold text-wine group-hover:text-wine/80">滬尾藝文休閒園區停車場</div>
+                                    <div class="text-[11px] text-earth-brown/70">FAB GREEN VILLAGE PARKING LOT</div>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cream border border-gold/40 px-2.5 py-1 rounded-lg text-wine font-medium shrink-0 group-hover:bg-wine group-hover:text-cream transition flex items-center gap-1">
+                                <i class="fa-solid fa-location-arrow text-[10px]"></i> 導航
+                            </span>
+                        </a>
+
+                        <!-- P2 -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=淡水豪邸嘉廬" target="_blank" class="bg-[#FAF6EE] hover:bg-sage-light/50 transition p-3 rounded-xl border border-gold/20 flex items-center justify-between group shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold group-hover:bg-wine transition">P2</span>
+                                <div>
+                                    <div class="font-bold text-wine group-hover:text-wine/80">淡水豪邸嘉廬路邊停車格</div>
+                                    <div class="text-[11px] text-earth-brown/70">On-street parking space</div>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cream border border-gold/40 px-2.5 py-1 rounded-lg text-wine font-medium shrink-0 group-hover:bg-wine group-hover:text-cream transition flex items-center gap-1">
+                                <i class="fa-solid fa-location-arrow text-[10px]"></i> 導航
+                            </span>
+                        </a>
+
+                        <!-- P3 -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=淡水紅毛城停車場" target="_blank" class="bg-[#FAF6EE] hover:bg-sage-light/50 transition p-3 rounded-xl border border-gold/20 flex items-center justify-between group shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold group-hover:bg-wine transition">P3</span>
+                                <div>
+                                    <div class="font-bold text-wine group-hover:text-wine/80">紅毛城停車場</div>
+                                    <div class="text-[11px] text-earth-brown/70">FORT SAN DOMINGO PARKING LOT</div>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cream border border-gold/40 px-2.5 py-1 rounded-lg text-wine font-medium shrink-0 group-hover:bg-wine group-hover:text-cream transition flex items-center gap-1">
+                                <i class="fa-solid fa-location-arrow text-[10px]"></i> 導航
+                            </span>
+                        </a>
+
+                        <!-- P4 -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=淡水和平公園停車場" target="_blank" class="bg-[#FAF6EE] hover:bg-sage-light/50 transition p-3 rounded-xl border border-gold/20 flex items-center justify-between group shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold group-hover:bg-wine transition">P4</span>
+                                <div>
+                                    <div class="font-bold text-wine group-hover:text-wine/80">和平公園停車場</div>
+                                    <div class="text-[11px] text-earth-brown/70">PEACE PARK PARKING LOT</div>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cream border border-gold/40 px-2.5 py-1 rounded-lg text-wine font-medium shrink-0 group-hover:bg-wine group-hover:text-cream transition flex items-center gap-1">
+                                <i class="fa-solid fa-location-arrow text-[10px]"></i> 導航
+                            </span>
+                        </a>
+
+                        <!-- P5 -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=城市車旅停車場+淡水" target="_blank" class="bg-[#FAF6EE] hover:bg-sage-light/50 transition p-3 rounded-xl border border-gold/20 flex items-center justify-between group shadow-sm md:col-span-2">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold group-hover:bg-wine transition">P5</span>
+                                <div>
+                                    <div class="font-bold text-wine group-hover:text-wine/80">城市車旅停車場</div>
+                                    <div class="text-[11px] text-earth-brown/70">CITY PARKING LOT</div>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cream border border-gold/40 px-2.5 py-1 rounded-lg text-wine font-medium shrink-0 group-hover:bg-wine group-hover:text-cream transition flex items-center gap-1">
+                                <i class="fa-solid fa-location-arrow text-[10px]"></i> 導航
+                            </span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Firm (新增加的廠商介紹頁面) -->
+        <section id="page-firm" class="hidden space-y-8">
+            <div class="text-center">
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Wedding Partners</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮廠商介紹</h2>
+                <p class="text-sm text-earth-brown/80 mt-1">感謝所有優秀的夥伴，與我們一同打造這場溫馨美好的婚禮！</p>
+            </div>
+
+            <!-- 廠商圖卡容器 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                
+                <!-- Firm 1 Card -->
+                <div class="bg-cream-card rounded-3xl p-5 border border-gold/30 shadow-sm flex flex-col items-center hover:shadow-md transition">
+                    <div class="arch-card bg-[#FAF6EE] p-3 border border-gold/30 shadow-inner w-full flex flex-col items-center overflow-hidden">
+                        <div class="w-full h-80 sm:h-96 rounded-t-[140px] overflow-hidden relative bg-sage/10">
+                            <img src="Firm1.jpg" alt="Wedding Vendor 1" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x800/E3E8E0/5C2C2E?text=Firm+1';">
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-english text-xl font-semibold text-wine">Vendor Partner I</h3>
+                        <p class="text-xs text-gold tracking-wider font-english uppercase mt-0.5">Special Thanks</p>
+                    </div>
+                </div>
+
+                <!-- Firm 2 Card -->
+                <div class="bg-cream-card rounded-3xl p-5 border border-gold/30 shadow-sm flex flex-col items-center hover:shadow-md transition">
+                    <div class="arch-card bg-[#FAF6EE] p-3 border border-gold/30 shadow-inner w-full flex flex-col items-center overflow-hidden">
+                        <div class="w-full h-80 sm:h-96 rounded-t-[140px] overflow-hidden relative bg-sage/10">
+                            <img src="Firm2.jpg" alt="Wedding Vendor 2" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x800/E3E8E0/5C2C2E?text=Firm+2';">
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <h3 class="font-english text-xl font-semibold text-wine">Vendor Partner II</h3>
+                        <p class="text-xs text-gold tracking-wider font-english uppercase mt-0.5">Special Thanks</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-cream-card border-t border-gold/20 py-8 text-center text-xs text-earth-brown/70 space-y-2">
+        <div class="font-english text-base text-wine font-semibold">Jill & Jerry Wedding Day</div>
+        <p>2026.10.10 @ 君品 Collection - 淡水豪邸嘉廬</p>
+        <p class="text-[10px] text-gold uppercase tracking-widest">Designed with love for Cheng Fu & Chih Fan</p>
+    </footer>
+
+    <script>
+        // Tab Navigation Logic
+        function switchTab(tabName) {
+            const tabs = ['home', 'faq', 'map', 'firm'];
+            
+            tabs.forEach(t => {
+                const pageEl = document.getElementById(`page-${t}`);
+                const tabBtn = document.getElementById(`tab-${t}`);
+                
+                if (t === tabName) {
+                    if (pageEl) pageEl.classList.remove('hidden');
+                    if (tabBtn) tabBtn.classList.add('active');
+                } else {
+                    if (pageEl) pageEl.classList.add('hidden');
+                    if (tabBtn) tabBtn.classList.remove('active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(buttonEl) {
+            const content = buttonEl.nextElementSibling;
+            const icon = buttonEl.querySelector('.fa-chevron-down');
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.accordion-header .fa-chevron-down').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Wedding Countdown Timer (Target: 2026-10-10 18:00:00)
+        function updateCountdown() {
+            const weddingDate = new Date('2026-10-10T18:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = `<div class="text-wine font-bold text-lg py-2">婚禮盛宴進行中！歡迎同樂！</div>`;
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
