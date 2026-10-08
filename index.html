@@ -93,17 +93,17 @@
             </div>
 
             <!-- Navigation Tabs -->
-            <nav class="flex items-center space-x-3 md:space-x-8 text-sm md:text-base">
-                <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+            <nav class="flex items-center space-x-2 sm:space-x-4 md:space-x-8 text-sm md:text-base">
+                <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
                     婚禮邀請
                 </button>
-                <button onclick="switchTab('faq')" id="tab-faq" class="tab-btn px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                <button onclick="switchTab('faq')" id="tab-faq" class="tab-btn px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
                     問與答 FAQ
                 </button>
-                <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
                     交通資訊
                 </button>
-				<button onclick="switchTab('vendor')" id="tab-vendor" class="tab-btn px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                <button onclick="switchTab('vendor')" id="tab-vendor" class="tab-btn px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
                     廠商介紹
                 </button>
             </nav>
@@ -113,6 +113,7 @@
     <!-- Main Content Container -->
     <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 md:py-10">
 
+        <!-- Page 1: Home -->
         <section id="page-home" class="space-y-10">
             <!-- Hero Card -->
             <div class="relative bg-cream-card rounded-3xl p-6 md:p-10 border border-gold/30 shadow-sm overflow-hidden text-center">
@@ -188,7 +189,7 @@
                     在這個特別的日子裡，誠摯邀請您來到美麗的淡水河畔，<br>
                     與我們一同分享愛、笑聲與微醺的美好夜晚！
                 </p>
-                <div class="pt-4 flex justify-center gap-4">
+                <div class="pt-4 flex flex-wrap justify-center gap-4">
                     <button onclick="switchTab('map')" class="px-6 py-2.5 rounded-full bg-wine text-cream hover:bg-wine/90 transition shadow-md text-sm font-medium">
                         <i class="fa-solid fa-map-location-dot mr-2"></i>查看交通指引
                     </button>
@@ -199,6 +200,7 @@
             </div>
         </section>
 
+        <!-- Page 2: FAQ -->
         <section id="page-faq" class="hidden space-y-6">
             <div class="text-center mb-8">
                 <span class="font-english text-sm text-gold tracking-widest uppercase">Information & Help</span>
@@ -271,9 +273,8 @@
                                 <li><span class="font-bold text-wine">P4 和平公園停車場</span></li>
                                 <li><span class="font-bold text-wine">P5 城市車旅停車場</span></li>
                                 <div class="bg-gold/10 p-3 rounded-xl text-xs text-wine border border-gold/30 mt-2">
-                                <i class="fa-solid fa-circle-info mr-1"></i> 以上停車場，停好車散步過來只要 3-5 分鐘，非常近又可以散步看夕陽！
-                            </div>
-                                
+                                    <i class="fa-solid fa-circle-info mr-1"></i> 以上停車場，停好車散步過來只要 3-5 分鐘，非常近又可以散步看夕陽！
+                                </div>
                             </ul>
                         </div>
                     </div>
@@ -338,7 +339,9 @@
                         </div>
                     </div>
                 </div>
-				<div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+
+                <!-- Q6: Ceremony Time -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
                     <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
                         <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
                             <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q6</span>
@@ -356,6 +359,7 @@
             </div>
         </section>
 
+        <!-- Page 3: Map -->
         <section id="page-map" class="hidden space-y-8">
             <div class="text-center">
                 <span class="font-english text-sm text-gold tracking-widest uppercase">Location & Map</span>
@@ -363,7 +367,7 @@
                 <p class="text-sm text-earth-brown/80 mt-1">君品 Collection - 淡水豪邸嘉廬（新北市淡水區中正路382號）</p>
             </div>
 
-            <!-- Fixed Embedded Google Map (standard iframe without API key issues) -->
+            <!-- Fixed Embedded Google Map -->
             <div class="bg-cream-card p-4 rounded-3xl border border-gold/30 shadow-sm space-y-3">
                 <div class="text-xs font-english text-gold uppercase tracking-wider text-center font-bold">
                     <i class="fa-solid fa-map-location-dot mr-1"></i> Google Maps Navigation
@@ -387,12 +391,11 @@
                 </div>
             </div>
 
-            <!-- Illustrated Map Graphic (Matches physical wedding invitation) -->
+            <!-- Illustrated Map Graphic -->
             <div class="bg-cream-card p-4 md:p-6 rounded-3xl border border-gold/30 shadow-sm relative overflow-hidden">
                 <div class="text-xs text-center font-english text-gold mb-3 uppercase tracking-wider font-bold">
                     <i class="fa-solid fa-square-parking mr-1"></i> 周邊停車與地圖指示圖 (Parking Map)
                 </div>
-
 
                 <!-- Detailed Parking Breakdown with Direct Navigation Buttons -->
                 <div class="mt-6 space-y-3">
@@ -477,32 +480,34 @@
             </div>
         </section>
 
-	<!-- Page: Wedding Vendors / Partners -->
+        <!-- Page 4: Vendor (新增廠商介紹頁面) -->
         <section id="page-vendor" class="hidden space-y-8">
             <div class="text-center">
-                <span class="font-english text-sm text-gold tracking-widest uppercase">Wedding Vendors</span>
-                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮廠商介紹</h2>
-                <p class="text-sm text-earth-brown/80 mt-1">感謝用心為我們打造夢幻婚禮的優秀團隊夥伴</p>
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Wedding Partners</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮合作廠商介紹</h2>
+                <p class="text-sm text-earth-brown/80 mt-1">感謝所有優秀夥伴的傾力協助，打造屬於我們的夢幻婚禮</p>
             </div>
 
-            <div class="space-y-6 max-w-3xl mx-auto">
-                <!-- Vendor Image Card 1 -->
-                <div class="bg-cream-card rounded-3xl p-4 md:p-6 border border-gold/30 shadow-sm text-center">
-                    <div class="text-xs font-english tracking-widest text-gold uppercase mb-3 font-bold">
-                        <i class="fa-solid fa-heart mr-1"></i> Special Thanks - Part 1
+            <div class="space-y-8 max-w-3xl mx-auto">
+                <!-- Firm 1 -->
+                <div class="bg-cream-card p-4 sm:p-6 rounded-3xl border border-gold/30 shadow-sm transition hover:shadow-md">
+                    <div class="text-center sm:text-left mb-4">
+                        <span class="font-english text-xs text-gold font-semibold tracking-wider uppercase">PARTNER 01</span>
+                        <h3 class="text-xl font-bold text-wine">婚禮廠商資訊 I</h3>
                     </div>
-                    <div class="rounded-2xl overflow-hidden border border-gold/20 shadow-md bg-cream">
-                        <img src="Firm1.jpg" alt="婚禮廠商介紹 1" class="w-full h-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/800x1200/F4EFE6/5C2C2E?text=Firm1.jpg';">
+                    <div class="rounded-2xl overflow-hidden border border-gold/20 shadow-inner bg-[#FAF6EE]">
+                        <img src="Firm1.jpg" alt="Wedding Vendor 1" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x600/FAF6EE/5C2C2E?text=Firm1.jpg';">
                     </div>
                 </div>
 
-                <!-- Vendor Image Card 2 -->
-                <div class="bg-cream-card rounded-3xl p-4 md:p-6 border border-gold/30 shadow-sm text-center">
-                    <div class="text-xs font-english tracking-widest text-gold uppercase mb-3 font-bold">
-                        <i class="fa-solid fa-heart mr-1"></i> Special Thanks - Part 2
+                <!-- Firm 2 -->
+                <div class="bg-cream-card p-4 sm:p-6 rounded-3xl border border-gold/30 shadow-sm transition hover:shadow-md">
+                    <div class="text-center sm:text-left mb-4">
+                        <span class="font-english text-xs text-gold font-semibold tracking-wider uppercase">PARTNER 02</span>
+                        <h3 class="text-xl font-bold text-wine">婚禮廠商資訊 II</h3>
                     </div>
-                    <div class="rounded-2xl overflow-hidden border border-gold/20 shadow-md bg-cream">
-                        <img src="Firm2.jpg" alt="婚禮廠商介紹 2" class="w-full h-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/800x1200/F4EFE6/5C2C2E?text=Firm2.jpg';">
+                    <div class="rounded-2xl overflow-hidden border border-gold/20 shadow-inner bg-[#FAF6EE]">
+                        <img src="Firm2.jpg" alt="Wedding Vendor 2" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x600/FAF6EE/5C2C2E?text=Firm2.jpg';">
                     </div>
                 </div>
             </div>
@@ -520,18 +525,18 @@
     <script>
         // Tab Navigation Logic
         function switchTab(tabName) {
-            const tabs = ['home', 'faq', 'map'];
+            const tabs = ['home', 'faq', 'map', 'vendor'];
             
             tabs.forEach(t => {
                 const pageEl = document.getElementById(`page-${t}`);
                 const tabBtn = document.getElementById(`tab-${t}`);
                 
                 if (t === tabName) {
-                    pageEl.classList.remove('hidden');
-                    tabBtn.classList.add('active');
+                    if (pageEl) pageEl.classList.remove('hidden');
+                    if (tabBtn) tabBtn.classList.add('active');
                 } else {
-                    pageEl.classList.add('hidden');
-                    tabBtn.classList.remove('active');
+                    if (pageEl) pageEl.classList.add('hidden');
+                    if (tabBtn) tabBtn.classList.remove('active');
                 }
             });
 
