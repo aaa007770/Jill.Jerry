@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cheng Fu & Chih Fan Wedding Invitation</title>
+  <!-- Google Fonts: Noto Serif TC & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-cream: #F8F5EE;
+      --card-cream: #FFFDF9;
+      --sage-green: #829B8C;
+      --sage-dark: #647B6D;
+      --sage-light: #E7EFE9;
+      --rose-gold: #C39083;
+      --warm-brown: #A67C52;
+      --text-dark: #3E3A37;
+      --text-sub: #726E6A;
+      --border-color: #E5DFC8;
+      --shadow: 0 10px 30px rgba(130, 155, 140, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      font-family: 'Noto Serif TC', serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Canvas 背景動態特效 */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 頂部 fixed 導覽列 */
+    header {
+      width: 100%;
+      max-width: 640px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(248, 245, 238, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 10px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: 1px solid transparent;
+      font-family: 'Noto Serif TC', serif;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-btn:hover {
+      color: var(--sage-green);
+    }
+
+    .nav-btn.active {
+      background-color: var(--sage-green);
+      color: #FFFFFF;
+      border-color: var(--sage-green);
+      box-shadow: 0 2px 8px rgba(130, 155, 140, 0.3);
+    }
+
+    /* 主要內容區域 */
+    main {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px 16px 60px 16px;
+      z-index: 1;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 經典拱門造型卡片 */
+    .arch-card {
+      background-color: var(--card-cream);
+      border-radius: 200px 200px 24px 24px;
+      border: 1px solid var(--border-color);
+      padding: 40px 24px 36px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    /* 圖片容器 - 拱門切割造型 */
+    .photo-arch {
+      width: 100%;
+      max-width: 320px;
+      height: 400px;
+      margin: 0 auto 28px auto;
+      border-radius: 160px 160px 16px 16px;
+      overflow: hidden;
+      border: 4px solid var(--card-cream);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .photo-arch img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .date-tag {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--rose-gold);
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--rose-gold);
+      font-weight: 500;
+      margin-bottom: 24px;
+      letter-spacing: 1.5px;
+    }
+
+    .couple-info {
+      font-size: 1.15rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      letter-spacing: 1px;
+    }
+
+    .couple-info span {
+      display: inline-block;
+      margin: 0 8px;
+    }
+
+    .parents-section {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      line-height: 1.8;
+      margin-bottom: 24px;
+      background: var(--sage-light);
+      padding: 16px;
+      border-radius: 16px;
+    }
+
+    .parents-title {
+      color: var(--sage-dark);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background-color: var(--rose-gold);
+      margin: 24px auto;
+      opacity: 0.6;
+    }
+
+    .time-badge {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .time-sub {
+      color: var(--rose-gold);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .venue-title {
+      font-size: 1.25rem;
+      color: var(--sage-green);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .venue-address {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    /* 通用卡片 */
+    .card {
+      background: var(--card-cream);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      color: var(--sage-green);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 10px;
+    }
+
+    .img-frame {
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid var(--border-color);
+    }
+
+    .img-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .info-list {
+      list-style: none;
+      line-height: 1.9;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+    }
+
+    .info-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+    }
+
+    .info-list li::before {
+      content: "•";
+      color: var(--sage-green);
+      font-weight: bold;
+      font-size: 1.2rem;
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+
+    /* 廠商卡片網格 */
+    .firm-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* FAQ 摺疊選單 */
+    .faq-item {
+      background: var(--card-cream);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 18px 20px;
+      background: none;
+      border: none;
+      text-align: left;
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: inherit;
+      line-height: 1.4;
+    }
+
+    .faq-question:hover {
+      background-color: var(--sage-light);
+    }
+
+    .faq-toggle {
+      font-size: 1.3rem;
+      color: var(--sage-green);
+      transition: transform 0.3s ease;
+      margin-left: 10px;
+      flex-shrink: 0;
+    }
+
+    .faq-item.open .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
+      padding: 0 20px;
+      background-color: #FAF8F3;
+      color: var(--text-sub);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 600px;
+      padding: 16px 20px 20px 20px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    /* 色彩穿搭對照圖範例 */
+    .palette-box {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #FFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    /* 頁尾 */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      z-index: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Canvas 動態繪圖特效 (浮動花瓣/幾何圓弧) -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- 頂部頁籤導覽列 -->
+  <header>
+    <nav>
+      <button class="nav-btn active" onclick="switchTab('home')">首頁</button>
+      <button class="nav-btn" onclick="switchTab('location')">宴客地點</button>
+      <button class="nav-btn" onclick="switchTab('vendors')">廠商資訊</button>
+      <button class="nav-btn" onclick="switchTab('faq')">常見問題</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 分頁 1: 首頁 -->
+    <section id="home" class="tab-content active">
+      <div class="arch-card">
+        <div class="date-tag">17th OCT. 2026</div>
+        <h1 class="main-title">Cheng Fu & Chih Fan</h1>
+
+        <!-- 新郎新娘照片 1.jpg -->
+        <div class="photo-arch">
+          <img src="1.jpg" alt="洪丞賦 & 汪芷帆 婚紗照" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80';">
+        </div>
+
+        <div class="couple-info">
+          新郎 <strong>洪丞賦</strong> <span>&</span> 新娘 <strong>汪芷帆</strong>
+        </div>
+
+        <div class="parents-section">
+          <div class="parents-title">/ 家長 /</div>
+          洪寬諒 蔡佳玲 &nbsp;&nbsp; 汪政義 高麗萍<br>
+          <span style="letter-spacing: 4px; font-size: 0.85rem; color: var(--sage-dark); font-weight: 600; margin-top: 6px; display: inline-block;">敬 邀</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="time-badge">2026 . 10 . 17 星期六</div>
+        <div class="time-sub">18 : 00 恭請準時入席</div>
+
+        <div class="venue-title">一森 Evermore Wedding</div>
+        <div class="venue-address">
+          彰化縣田尾鄉田尾村公園路一段171巷30弄75號 (旁)
+        </div>
+      </div>
+    </section>
+
+    <!-- 分頁 2: 宴客地點 -->
+    <section id="location" class="tab-content">
+      <div class="card">
+        <div class="card-title">
+          <span>📍</span> 宴客地圖與交通指引
+        </div>
+
+        <!-- 宴客地點地圖圖片 2.jpg -->
+        <div class="img-frame">
+          <img src="2.jpg" alt="宴客地點地圖指引" onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80';">
+        </div>
+
+        <ul class="info-list">
+          <li><strong>宴客地點：</strong>一森 Evermore Wedding</li>
+          <li><strong>詳細地址：</strong>彰化縣田尾鄉田尾村公園路一段171巷30弄75號(旁)</li>
+          <li><strong>GOOGLE 搜尋：</strong>一森 EVERMORE WEDDING</li>
+          <li><strong>高鐵資訊：</strong>彰化高鐵站下車，轉乘計程車約 12 分鐘</li>
+          <li><strong>國道一號：</strong>員林交流道下，車程約 9 分鐘</li>
+          <li><strong>快速道路：</strong>往公路花園 / 台76線 / 國道三號約 12 分鐘</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">
+          <span>🅿️</span> 停車資訊
+        </div>
+        <p style="color: var(--text-sub); line-height: 1.7; font-size: 0.95rem;">
+          會場旁備有專屬「<strong>一森停車場</strong>」（位於振華路與田芳路口處），提供賓客免費停車，離場無需領取停車券或進行任何折抵。
+        </p>
+      </div>
+    </section>
+
+    <!-- 分頁 3: 廠商資訊 -->
+    <section id="vendors" class="tab-content">
+      <div class="firm-grid">
+        <div class="card">
+          <div class="card-title">
+            <span>✨</span> 婚禮合作廠商 (一)
+          </div>
+          <!-- 廠商圖片 Firm1.jpg -->
+          <div class="img-frame">
+            <img src="Firm1.jpg" alt="廠商資訊 1" onerror="this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80';">
+          </div>
+          <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.6;">
+            感謝所有專業團隊協助打造夢幻婚禮細節。
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <span>📸</span> 婚禮合作廠商 (二)
+          </div>
+          <!-- 廠商圖片 Firm2.jpg -->
+          <div class="img-frame">
+            <img src="Firm2.jpg" alt="廠商資訊 2" onerror="this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80';">
+          </div>
+          <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.6;">
+            現場佈置、新娘秘書、攝影團隊與造型設計資訊。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 分頁 4: 常見問題 FAQ -->
+    <section id="faq" class="tab-content">
+      <h2 style="text-align: center; color: var(--sage-green); font-size: 1.3rem; margin-bottom: 20px; font-weight: 600;">
+        常見問題 FAQ
+      </h2>
+
+      <!-- Q1 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 當天臨時有狀況,我該聯繫誰?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          若婚禮當天臨時有狀況或找不到位置，可以聯繫現場總招待或主婚人（洪寬諒、蔡佳玲、汪政義、高麗萍家族親友），我們將有專人為您服務。
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 有素食的需求,如何告知?
+          <span class="faq-icon faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          請於出席回覆調查表中註明「素食需求」，或提前於婚禮一週前私訊告知新郎（洪丞賦）或新娘（汪芷帆），我們將為您準備專屬素食個人套餐。
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 有提供停車位嗎?如何折抵?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          會場備有專用「一森停車場」（位於田芳路與振華路交界處附近），所有賓客皆可免費停車，離場時無需進行任何折抵手續。
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 搭乘大眾運輸,怎麼走最方便?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          建議搭乘高鐵至「彰化高鐵站」，出站後轉乘計程車或 Uber，約 12 分鐘即可直達「一森 Evermore Wedding」會場。
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 沒看到自己的桌號,什麼時候會公佈?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          桌位圖將於婚禮前 3 天透過簡訊或 LINE 訊息公佈，婚禮當天會場入口處亦備有完整桌次告示牌與親切導引人員。
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 大頭貼機及背板何時可以使用?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          拍立得大頭貼機與拍照背板將於 <strong>17:30 迎賓時間</strong> 開放使用，歡迎大家提前入場拍照留念！
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q: 拍照背板和穿搭的色調?
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          婚禮整體風格為溫暖自然風，建議穿搭可選擇以下柔和色調：
+          <div class="palette-box">
+            <div class="color-swatch" style="background: #F8F5EE;" title="米白"></div>
+            <div class="color-swatch" style="background: #E5DFC8;" title="燕麥奶"></div>
+            <div class="color-swatch" style="background: #829B8C;" title="鼠尾草綠"></div>
+            <div class="color-swatch" style="background: #C39083;" title="玫瑰金暖棕"></div>
+            <div class="color-swatch" style="background: #5C2A2D;" title="深赭紅"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+    Cheng Fu & Chih Fan Wedding © 2026
+  </footer>
+
+  <script>
+    // 1. 分頁切換邏輯
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+
+      const activeTab = document.getElementById(tabId);
+      if (activeTab) activeTab.classList.add('active');
+
+      if (event && event.target) {
+        event.target.classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 2. FAQ 折疊選單邏輯
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      const isOpen = item.classList.contains('open');
+
+      // 關閉其他展開項
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+
+      if (!isOpen) {
+        item.classList.add('open');
+      }
+    }
+
+    // 3. Canvas 繪製柔和浮動粒子/花瓣特效
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Petal {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height - height;
+        this.size = Math.random() * 8 + 4;
+        this.speedY = Math.random() * 0.8 + 0.3;
+        this.speedX = Math.random() * 0.4 - 0.2;
+        this.opacity = Math.random() * 0.5 + 0.2;
+        this.rotation = Math.random() * Math.PI * 2;
+        this.rotSpeed = (Math.random() - 0.5) * 0.02;
+        // 鼠尾草綠與米金暖色粒子
+        const colors = ['rgba(130, 155, 140,', 'rgba(195, 144, 131,', 'rgba(229, 223, 200,'];
+        this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+      }
+
+      update() {
+        this.y += this.speedY;
+        this.x += Math.sin(this.y * 0.01) + this.speedX;
+        this.rotation += this.rotSpeed;
+
+        if (this.y > height + 20) {
+          this.reset();
+          this.y = -10;
+        }
+      }
+
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = `${this.colorBase}${this.opacity})`;
+        
+        ctx.beginPath();
+        ctx.ellipse(0, 0, this.size, this.size * 0.5, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    const petals = Array.from({ length: 28 }, () => new Petal());
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      petals.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
