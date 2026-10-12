@@ -1,702 +1,559 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cheng Fu & Chih Fan Wedding Invitation</title>
-  <!-- Google Fonts: Noto Serif TC & Playfair Display -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&family=Playfair+Display:ital,wght@0,500;0,700;1,400&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-cream: #F8F5EE;
-      --card-cream: #FFFDF9;
-      --sage-green: #829B8C;
-      --sage-dark: #647B6D;
-      --sage-light: #E7EFE9;
-      --rose-gold: #C39083;
-      --warm-brown: #A67C52;
-      --text-dark: #3E3A37;
-      --text-sub: #726E6A;
-      --border-color: #E5DFC8;
-      --shadow: 0 10px 30px rgba(130, 155, 140, 0.08);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-cream);
-      color: var(--text-dark);
-      font-family: 'Noto Serif TC', serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Canvas 背景動態特效 */
-    #bg-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* 頂部 fixed 導覽列 */
-    header {
-      width: 100%;
-      max-width: 640px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(248, 245, 238, 0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-color);
-      padding: 12px 10px;
-    }
-
-    nav {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .nav-btn {
-      background: none;
-      border: 1px solid transparent;
-      font-family: 'Noto Serif TC', serif;
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 20px;
-      transition: all 0.3s ease;
-      white-space: nowrap;
-    }
-
-    .nav-btn:hover {
-      color: var(--sage-green);
-    }
-
-    .nav-btn.active {
-      background-color: var(--sage-green);
-      color: #FFFFFF;
-      border-color: var(--sage-green);
-      box-shadow: 0 2px 8px rgba(130, 155, 140, 0.3);
-    }
-
-    /* 主要內容區域 */
-    main {
-      width: 100%;
-      max-width: 600px;
-      padding: 20px 16px 60px 16px;
-      z-index: 1;
-    }
-
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.4s ease-out forwards;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* 經典拱門造型卡片 */
-    .arch-card {
-      background-color: var(--card-cream);
-      border-radius: 200px 200px 24px 24px;
-      border: 1px solid var(--border-color);
-      padding: 40px 24px 36px 24px;
-      text-align: center;
-      box-shadow: var(--shadow);
-      position: relative;
-      margin-bottom: 24px;
-    }
-
-    /* 圖片容器 - 拱門切割造型 */
-    .photo-arch {
-      width: 100%;
-      max-width: 320px;
-      height: 400px;
-      margin: 0 auto 28px auto;
-      border-radius: 160px 160px 16px 16px;
-      overflow: hidden;
-      border: 4px solid var(--card-cream);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      position: relative;
-    }
-
-    .photo-arch img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .date-tag {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      color: var(--rose-gold);
-      font-size: 1.25rem;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .main-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
-      color: var(--rose-gold);
-      font-weight: 500;
-      margin-bottom: 24px;
-      letter-spacing: 1.5px;
-    }
-
-    .couple-info {
-      font-size: 1.15rem;
-      margin-bottom: 20px;
-      color: var(--text-dark);
-      letter-spacing: 1px;
-    }
-
-    .couple-info span {
-      display: inline-block;
-      margin: 0 8px;
-    }
-
-    .parents-section {
-      font-size: 0.95rem;
-      color: var(--text-sub);
-      line-height: 1.8;
-      margin-bottom: 24px;
-      background: var(--sage-light);
-      padding: 16px;
-      border-radius: 16px;
-    }
-
-    .parents-title {
-      color: var(--sage-dark);
-      font-weight: 600;
-      font-size: 0.85rem;
-      margin-bottom: 6px;
-      letter-spacing: 2px;
-    }
-
-    .divider {
-      width: 60px;
-      height: 1px;
-      background-color: var(--rose-gold);
-      margin: 24px auto;
-      opacity: 0.6;
-    }
-
-    .time-badge {
-      font-size: 1.25rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 6px;
-    }
-
-    .time-sub {
-      color: var(--rose-gold);
-      font-size: 1rem;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-
-    .venue-title {
-      font-size: 1.25rem;
-      color: var(--sage-green);
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .venue-address {
-      font-size: 0.9rem;
-      color: var(--text-sub);
-      line-height: 1.5;
-    }
-
-    /* 通用卡片 */
-    .card {
-      background: var(--card-cream);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      padding: 24px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      color: var(--sage-green);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 10px;
-    }
-
-    .img-frame {
-      width: 100%;
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      border: 1px solid var(--border-color);
-    }
-
-    .img-frame img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .info-list {
-      list-style: none;
-      line-height: 1.9;
-      font-size: 0.95rem;
-      color: var(--text-dark);
-    }
-
-    .info-list li {
-      position: relative;
-      padding-left: 20px;
-      margin-bottom: 8px;
-    }
-
-    .info-list li::before {
-      content: "•";
-      color: var(--sage-green);
-      font-weight: bold;
-      font-size: 1.2rem;
-      position: absolute;
-      left: 0;
-      top: -2px;
-    }
-
-    /* 廠商卡片網格 */
-    .firm-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    /* FAQ 摺疊選單 */
-    .faq-item {
-      background: var(--card-cream);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      margin-bottom: 12px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    }
-
-    .faq-question {
-      width: 100%;
-      padding: 18px 20px;
-      background: none;
-      border: none;
-      text-align: left;
-      font-size: 0.98rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-      font-family: inherit;
-      line-height: 1.4;
-    }
-
-    .faq-question:hover {
-      background-color: var(--sage-light);
-    }
-
-    .faq-toggle {
-      font-size: 1.3rem;
-      color: var(--sage-green);
-      transition: transform 0.3s ease;
-      margin-left: 10px;
-      flex-shrink: 0;
-    }
-
-    .faq-item.open .faq-toggle {
-      transform: rotate(45deg);
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0, 1, 0, 1), padding 0.3s ease;
-      padding: 0 20px;
-      background-color: #FAF8F3;
-      color: var(--text-sub);
-      font-size: 0.92rem;
-      line-height: 1.7;
-    }
-
-    .faq-item.open .faq-answer {
-      max-height: 600px;
-      padding: 16px 20px 20px 20px;
-      border-top: 1px dashed var(--border-color);
-    }
-
-    /* 色彩穿搭對照圖範例 */
-    .palette-box {
-      display: flex;
-      gap: 10px;
-      margin-top: 12px;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .color-swatch {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid #FFF;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    }
-
-    /* 頁尾 */
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.85rem;
-      color: var(--text-sub);
-      z-index: 1;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Canvas 動態繪圖特效 (浮動花瓣/幾何圓弧) -->
-  <canvas id="bg-canvas"></canvas>
-
-  <!-- 頂部頁籤導覽列 -->
-  <header>
-    <nav>
-      <button class="nav-btn active" onclick="switchTab('home')">首頁</button>
-      <button class="nav-btn" onclick="switchTab('location')">宴客地點</button>
-      <button class="nav-btn" onclick="switchTab('vendors')">廠商資訊</button>
-      <button class="nav-btn" onclick="switchTab('faq')">常見問題</button>
-    </nav>
-  </header>
-
-  <main>
-
-    <!-- 分頁 1: 首頁 -->
-    <section id="home" class="tab-content active">
-      <div class="arch-card">
-        <div class="date-tag">17th OCT. 2026</div>
-        <h1 class="main-title">Cheng Fu & Chih Fan</h1>
-
-        <!-- 新郎新娘照片 1.jpg -->
-        <div class="photo-arch">
-          <img src="1.jpg" alt="洪丞賦 & 汪芷帆 婚紗照" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80';">
-        </div>
-
-        <div class="couple-info">
-          新郎 <strong>洪丞賦</strong> <span>&</span> 新娘 <strong>汪芷帆</strong>
-        </div>
-
-        <div class="parents-section">
-          <div class="parents-title">/ 家長 /</div>
-          洪寬諒 蔡佳玲 &nbsp;&nbsp; 汪政義 高麗萍<br>
-          <span style="letter-spacing: 4px; font-size: 0.85rem; color: var(--sage-dark); font-weight: 600; margin-top: 6px; display: inline-block;">敬 邀</span>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="time-badge">2026 . 10 . 17 星期六</div>
-        <div class="time-sub">18 : 00 恭請準時入席</div>
-
-        <div class="venue-title">一森 Evermore Wedding</div>
-        <div class="venue-address">
-          彰化縣田尾鄉田尾村公園路一段171巷30弄75號 (旁)
-        </div>
-      </div>
-    </section>
-
-    <!-- 分頁 2: 宴客地點 -->
-    <section id="location" class="tab-content">
-      <div class="card">
-        <div class="card-title">
-          <span>📍</span> 宴客地圖與交通指引
-        </div>
-
-        <!-- 宴客地點地圖圖片 2.jpg -->
-        <div class="img-frame">
-          <img src="2.jpg" alt="宴客地點地圖指引" onerror="this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80';">
-        </div>
-
-        <ul class="info-list">
-          <li><strong>宴客地點：</strong>一森 Evermore Wedding</li>
-          <li><strong>詳細地址：</strong>彰化縣田尾鄉田尾村公園路一段171巷30弄75號(旁)</li>
-          <li><strong>GOOGLE 搜尋：</strong>一森 EVERMORE WEDDING</li>
-          <li><strong>高鐵資訊：</strong>彰化高鐵站下車，轉乘計程車約 12 分鐘</li>
-          <li><strong>國道一號：</strong>員林交流道下，車程約 9 分鐘</li>
-          <li><strong>快速道路：</strong>往公路花園 / 台76線 / 國道三號約 12 分鐘</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <div class="card-title">
-          <span>🅿️</span> 停車資訊
-        </div>
-        <p style="color: var(--text-sub); line-height: 1.7; font-size: 0.95rem;">
-          會場旁備有專屬「<strong>一森停車場</strong>」（位於振華路與田芳路口處），提供賓客免費停車，離場無需領取停車券或進行任何折抵。
-        </p>
-      </div>
-    </section>
-
-    <!-- 分頁 3: 廠商資訊 -->
-    <section id="vendors" class="tab-content">
-      <div class="firm-grid">
-        <div class="card">
-          <div class="card-title">
-            <span>✨</span> 婚禮合作廠商 (一)
-          </div>
-          <!-- 廠商圖片 Firm1.jpg -->
-          <div class="img-frame">
-            <img src="Firm1.jpg" alt="廠商資訊 1" onerror="this.src='https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80';">
-          </div>
-          <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.6;">
-            感謝所有專業團隊協助打造夢幻婚禮細節。
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="card-title">
-            <span>📸</span> 婚禮合作廠商 (二)
-          </div>
-          <!-- 廠商圖片 Firm2.jpg -->
-          <div class="img-frame">
-            <img src="Firm2.jpg" alt="廠商資訊 2" onerror="this.src='https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80';">
-          </div>
-          <p style="color: var(--text-sub); font-size: 0.9rem; line-height: 1.6;">
-            現場佈置、新娘秘書、攝影團隊與造型設計資訊。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 分頁 4: 常見問題 FAQ -->
-    <section id="faq" class="tab-content">
-      <h2 style="text-align: center; color: var(--sage-green); font-size: 1.3rem; margin-bottom: 20px; font-weight: 600;">
-        常見問題 FAQ
-      </h2>
-
-      <!-- Q1 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 當天臨時有狀況,我該聯繫誰?
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          若婚禮當天臨時有狀況或找不到位置，可以聯繫現場總招待或主婚人（洪寬諒、蔡佳玲、汪政義、高麗萍家族親友），我們將有專人為您服務。
-        </div>
-      </div>
-
-      <!-- Q2 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 有素食的需求,如何告知?
-          <span class="faq-icon faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          請於出席回覆調查表中註明「素食需求」，或提前於婚禮一週前私訊告知新郎（洪丞賦）或新娘（汪芷帆），我們將為您準備專屬素食個人套餐。
-        </div>
-      </div>
-
-      <!-- Q3 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 有提供停車位嗎?如何折抵?
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          會場備有專用「一森停車場」（位於田芳路與振華路交界處附近），所有賓客皆可免費停車，離場時無需進行任何折抵手續。
-        </div>
-      </div>
-
-      <!-- Q4 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 搭乘大眾運輸,怎麼走最方便?
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          建議搭乘高鐵至「彰化高鐵站」，出站後轉乘計程車或 Uber，約 12 分鐘即可直達「一森 Evermore Wedding」會場。
-        </div>
-      </div>
-
-      <!-- Q5 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 沒看到自己的桌號,什麼時候會公佈?
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          桌位圖將於婚禮前 3 天透過簡訊或 LINE 訊息公佈，婚禮當天會場入口處亦備有完整桌次告示牌與親切導引人員。
-        </div>
-      </div>
-
-      <!-- Q6 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 大頭貼機及背板何時可以使用?
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          拍立得大頭貼機與拍照背板將於 <strong>17:30 迎賓時間</strong> 開放使用，歡迎大家提前入場拍照留念！
-        </div>
-      </div>
-
-      <!-- Q7 -->
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q: 拍照背板和穿搭的色調?
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          婚禮整體風格為溫暖自然風，建議穿搭可選擇以下柔和色調：
-          <div class="palette-box">
-            <div class="color-swatch" style="background: #F8F5EE;" title="米白"></div>
-            <div class="color-swatch" style="background: #E5DFC8;" title="燕麥奶"></div>
-            <div class="color-swatch" style="background: #829B8C;" title="鼠尾草綠"></div>
-            <div class="color-swatch" style="background: #C39083;" title="玫瑰金暖棕"></div>
-            <div class="color-swatch" style="background: #5C2A2D;" title="深赭紅"></div>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-  </main>
-
-  <footer>
-    Cheng Fu & Chih Fan Wedding © 2026
-  </footer>
-
-  <script>
-    // 1. 分頁切換邏輯
-    function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(tab => {
-        tab.classList.remove('active');
-      });
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('active');
-      });
-
-      const activeTab = document.getElementById(tabId);
-      if (activeTab) activeTab.classList.add('active');
-
-      if (event && event.target) {
-        event.target.classList.add('active');
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // 2. FAQ 折疊選單邏輯
-    function toggleFaq(button) {
-      const item = button.parentElement;
-      const isOpen = item.classList.contains('open');
-
-      // 關閉其他展開項
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-
-      if (!isOpen) {
-        item.classList.add('open');
-      }
-    }
-
-    // 3. Canvas 繪製柔和浮動粒子/花瓣特效
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    class Petal {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height - height;
-        this.size = Math.random() * 8 + 4;
-        this.speedY = Math.random() * 0.8 + 0.3;
-        this.speedX = Math.random() * 0.4 - 0.2;
-        this.opacity = Math.random() * 0.5 + 0.2;
-        this.rotation = Math.random() * Math.PI * 2;
-        this.rotSpeed = (Math.random() - 0.5) * 0.02;
-        // 鼠尾草綠與米金暖色粒子
-        const colors = ['rgba(130, 155, 140,', 'rgba(195, 144, 131,', 'rgba(229, 223, 200,'];
-        this.colorBase = colors[Math.floor(Math.random() * colors.length)];
-      }
-
-      update() {
-        this.y += this.speedY;
-        this.x += Math.sin(this.y * 0.01) + this.speedX;
-        this.rotation += this.rotSpeed;
-
-        if (this.y > height + 20) {
-          this.reset();
-          this.y = -10;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jill & Jerry Wedding Day | 洪丞賦 & 汪芷帆</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF6EE',
+                        'cream-card': '#F4EFE6',
+                        sage: '#8A9A86',
+                        'sage-light': '#E3E8E0',
+                        'sage-dark': '#5C6B58',
+                        wine: '#5C2C2E',
+                        'earth-brown': '#4A2E2B',
+                        gold: '#C5A880',
+                        'dusty-blue': '#93A8B1',
+                        'dusty-grey': '#D2C9BD'
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif TC', 'serif'],
+                        english: ['Cormorant Garamond', 'Playfair Display', 'serif']
+                    }
+                }
+            }
         }
-      }
+    </script>
 
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.rotate(this.rotation);
-        ctx.fillStyle = `${this.colorBase}${this.opacity})`;
-        
-        ctx.beginPath();
-        ctx.ellipse(0, 0, this.size, this.size * 0.5, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-      }
-    }
+    <style>
+        body {
+            background-color: #FAF6EE;
+            color: #4A2E2B;
+            font-family: 'Noto Serif TC', serif;
+            overflow-x: hidden;
+        }
 
-    const petals = Array.from({ length: 28 }, () => new Petal());
+        /* Arch Shapes for Photo Frame */
+        .arch-card {
+            border-top-left-radius: 160px;
+            border-top-right-radius: 160px;
+        }
 
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      petals.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out, opacity 0.25s ease-in-out;
+            opacity: 0;
+        }
+        .accordion-content.active {
+            max-height: 500px;
+            opacity: 1;
+        }
 
-    animate();
-  </script>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C5A880;
+            border-radius: 4px;
+        }
+
+        .tab-btn.active {
+            color: #5C2C2E;
+            border-bottom: 2px solid #5C2C2E;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-sage/30">
+
+    <header class="sticky top-0 z-50 bg-[#FAF6EE]/90 backdrop-blur-md border-b border-gold/20 shadow-sm transition-all duration-300">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <!-- Brand Title -->
+            <div class="text-center sm:text-left cursor-pointer" onclick="switchTab('home')">
+                <span class="font-english text-2xl md:text-3xl font-semibold tracking-wider text-wine">Jill & Jerry</span>
+                <span class="block text-xs font-english tracking-widest text-gold text-center sm:text-left -mt-1">CHOSEN FOREVER</span>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <nav class="flex items-center space-x-2 sm:space-x-4 md:space-x-8 text-sm md:text-base">
+                <button onclick="switchTab('home')" id="tab-home" class="tab-btn active px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    婚禮邀請
+                </button>
+                <button onclick="switchTab('faq')" id="tab-faq" class="tab-btn px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    問與答 FAQ
+                </button>
+                <button onclick="switchTab('map')" id="tab-map" class="tab-btn px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    交通資訊
+                </button>
+                <button onclick="switchTab('vendor')" id="tab-vendor" class="tab-btn px-2 sm:px-3 py-1.5 text-wine/80 hover:text-wine transition-all">
+                    廠商介紹
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-6 md:py-10">
+
+        <!-- Page 1: Home -->
+        <section id="page-home" class="space-y-10">
+            <!-- Hero Card -->
+            <div class="relative bg-cream-card rounded-3xl p-6 md:p-10 border border-gold/30 shadow-sm overflow-hidden text-center">
+                <div class="text-xs font-english tracking-widest text-gold uppercase mb-2">17th OCT. 2026</div>
+                <h1 class="font-english text-3xl md:text-5xl text-wine mb-2">Cheng Fu & Chih Fan</h1>
+                <p class="text-sm md:text-base text-earth-brown/80 mb-6 font-serif">洪丞賦 <span class="text-gold mx-1">&</span> 汪芷帆</p>
+
+                <!-- Cover Image Arch Container -->
+                <div class="my-6 max-w-md mx-auto relative flex flex-col items-center">
+                    <div class="arch-card bg-[#FAF6EE] p-3 border-2 border-gold/40 shadow-md w-full max-w-sm flex flex-col items-center overflow-hidden">
+                        <div class="w-full h-80 sm:h-96 rounded-t-[140px] overflow-hidden relative shadow-inner bg-sage/10">
+                            <!-- Hero Image (pointing to 1.jpg) -->
+                            <img id="heroImage" src="1.jpg" alt="Jill & Jerry Photo" class="w-full h-full object-cover" onerror="this.onerror=null; this.src='https://placehold.co/600x800/EADBFA/5C2C2E?text=Jill+%26+Jerry';">
+                        </div>
+                        <div class="mt-4 font-english text-2xl text-wine font-medium">Jill & Jerry</div>
+                        <div class="text-xs font-english tracking-widest text-gold mb-2">CHOSEN FOREVER</div>
+                    </div>
+                </div>
+
+                <!-- Key Details Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-2xl mx-auto text-sm">
+                    <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                        <i class="fa-regular fa-calendar-check text-sage text-xl mb-2"></i>
+                        <div class="font-bold text-wine">宴客日期</div>
+                        <div class="text-earth-brown mt-1">2026 年 10 月 17 日</div>
+                        <div class="text-xs text-gold">星期六 18:00 準時入席</div>
+                    </div>
+                    <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                        <i class="fa-solid fa-location-dot text-sage text-xl mb-2"></i>
+                        <div class="font-bold text-wine">宴客地點</div>
+                        <div class="text-earth-brown mt-1">一森 Evermore Wedding</div>
+                        <div class="text-xs text-earth-brown/80">彰化縣田尾鄉田尾村公園路一段171巷30弄75號(旁)</div>
+                    </div>
+                    <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                        <i class="fa-solid fa-users text-sage text-xl mb-2"></i>
+                        <div class="font-bold text-wine">主婚人</div>
+                        <div class="text-xs text-earth-brown/80 mt-1">男方：洪寬諒 蔡佳玲</div>
+                        <div class="text-xs text-earth-brown/80">女方：汪政義 高麗萍</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Countdown Box -->
+            <div class="bg-sage/15 rounded-3xl p-6 text-center border border-sage/30">
+                <h3 class="font-english text-2xl text-wine mb-4">Wedding Countdown</h3>
+                <div class="flex justify-center gap-3 sm:gap-6 text-wine" id="countdown">
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="days" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">天 Days</span>
+                    </div>
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="hours" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">時 Hours</span>
+                    </div>
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="minutes" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">分 Mins</span>
+                    </div>
+                    <div class="bg-cream px-3 sm:px-4 py-3 rounded-2xl border border-gold/30 min-w-[65px] sm:min-w-[75px]">
+                        <span id="seconds" class="font-english text-2xl md:text-4xl font-bold block">--</span>
+                        <span class="text-[10px] sm:text-xs text-earth-brown">秒 Secs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Warm Invitation Statement -->
+            <div class="bg-cream-card rounded-3xl p-8 border border-gold/30 text-center space-y-4">
+                <div class="inline-block px-4 py-1 rounded-full bg-sage/20 text-sage-dark text-xs font-semibold tracking-wider uppercase">
+                    Sincerely Invited
+                </div>
+                <p class="leading-relaxed text-earth-brown max-w-lg mx-auto text-sm md:text-base">
+                    兩隻可愛的小夥伴陪伴著我們，記錄著最真實美好的時光。<br>
+                    在這個特別的日子裡，誠摯邀請您來到一森 Evermore Wedding，<br>
+                    與我們一同分享愛、笑聲與微醺的美好夜晚！
+                </p>
+                <div class="pt-4 flex flex-wrap justify-center gap-4">
+                    <button onclick="switchTab('map')" class="px-6 py-2.5 rounded-full bg-wine text-cream hover:bg-wine/90 transition shadow-md text-sm font-medium">
+                        <i class="fa-solid fa-map-location-dot mr-2"></i>查看交通指引
+                    </button>
+                    <button onclick="switchTab('faq')" class="px-6 py-2.5 rounded-full bg-sage text-cream hover:bg-sage/90 transition shadow-md text-sm font-medium">
+                        <i class="fa-solid fa-circle-question mr-2"></i>婚禮常見問題
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 2: FAQ -->
+        <section id="page-faq" class="hidden space-y-6">
+            <div class="text-center mb-8">
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Information & Help</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮常見問題 FAQ</h2>
+                <p class="text-sm text-earth-brown/80 mt-2">點擊下方問題可展開查看詳細資訊</p>
+            </div>
+
+            <div class="space-y-4 max-w-3xl mx-auto">
+
+                <!-- Q1: Contacts -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q1</span>
+                            當天臨時有狀況，我該聯繫誰？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3">
+                            婚禮當天新人正忙於準備與彩排，可能無法隨時接聽電話。<br>
+                            若您現場找不到宴會廳、臨時有狀況或遲到，請聯繫我們現場的窗口：
+                            <div class="mt-4 bg-[#FAF6EE] p-4 rounded-xl border border-gold/20 flex flex-col sm:flex-row gap-4 justify-around text-sm font-medium">
+                                <div class="flex items-center gap-2 text-wine">
+                                    <i class="fa-solid fa-phone text-sage"></i>
+                                    <span><strong>洪姐 電話：</strong><a href="tel:0953681638" class="underline hover:text-gold">0989100318</a></span>
+                                </div>
+                                <div class="flex items-center gap-2 text-wine">
+                                    <i class="fa-solid fa-phone text-sage"></i>
+                                    <span><strong>論哥 電話：</strong><a href="tel:0989100318" class="underline hover:text-gold">0968807188</a></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q2: Vegetarian Food -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q2</span>
+                            有素食的需求，如何告知？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p class="font-bold text-wine">我們非常重視每位賓客的飲食習慣！</p>
+                            <p>餐廳將會為您準備個人專屬素食套餐。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q3: Parking -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q3</span>
+                            有提供停車位嗎？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p>會場專屬停車場位於會場旁（振華路旁），請多加利用！</p>
+                            <div class="bg-gold/10 p-3 rounded-xl text-xs text-wine border border-gold/30 mt-2">
+                                <i class="fa-solid fa-circle-info mr-1"></i> 請導航「一森停車場」，停車後順著指標步行即可抵達會場。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q4: Transportation -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q4</span>
+                            搭乘大眾運輸或開車，怎麼走最方便？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p class="font-bold text-wine">交通方式指南：</p>
+                            <div class="bg-[#FAF6EE] p-3 rounded-xl border border-gold/20 text-xs space-y-1.5">
+                                <div>🚄 <strong>彰化高鐵站：</strong> 車程約 12 分鐘</div>
+                                <div>🚗 <strong>國道一號（國一）：</strong> 約 9 分鐘</div>
+                                <div>🚗 <strong>往公路花園 / 台76 / 國道三號（國三）：</strong> 約 12 分鐘</div>
+                                <div>📍 <strong>Google 搜尋建議：</strong> 請直接搜尋 <span class="bg-sage/20 px-1.5 py-0.5 rounded font-bold text-wine">[一森 EVERMORE WEDDING]</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q5: Dress Code -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q5</span>
+                            拍照背板和穿搭的色調？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-3">
+                            <p>本次婚禮會場設計以「溫暖奶油與自然植物綠意」為基調，歡迎大家穿著舒適、優雅的 Smart Casual 服飾參與！</p>
+                            
+                            <!-- Color Palette Display -->
+                            <div class="bg-[#FAF6EE] p-4 rounded-2xl border border-gold/20">
+                                <div class="text-xs font-english tracking-widest text-gold mb-2 font-bold uppercase">Dress Code Palette 色票參考</div>
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#FAF6EE] border-2 border-gold shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">米白暖色 Warm Off-White</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#93A8B1] border border-white shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">霧藍 Dusty Blue</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#8A9A86] border border-white shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">鼠尾草綠 Sage</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-7 h-7 rounded-full bg-[#5C2C2E] border border-white shadow-sm inline-block"></span>
+                                        <span class="text-xs text-earth-brown">深酒紅 Wine Red</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Q6: Ceremony Time -->
+                <div class="bg-cream-card border border-gold/30 rounded-2xl overflow-hidden shadow-sm transition">
+                    <button class="accordion-header w-full p-5 text-left flex justify-between items-center gap-4 hover:bg-sage/10 transition" onclick="toggleAccordion(this)">
+                        <span class="font-bold text-wine text-base md:text-lg flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-full bg-wine text-cream text-xs flex items-center justify-center font-english flex-shrink-0">Q6</span>
+                            證婚儀式幾點開始？
+                        </span>
+                        <i class="fa-solid fa-chevron-down text-wine transition-transform duration-300"></i>
+                    </button>
+                    <div class="accordion-content px-6 pb-5 text-earth-brown text-sm leading-relaxed border-t border-gold/10">
+                        <div class="pt-3 space-y-2">
+                            <p>我們的證婚儀式於17:00開始，現場座位有限，先搶先贏，晚來只能站著看我們放閃囉！</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Page 3: Map -->
+        <section id="page-map" class="hidden space-y-8">
+            <div class="text-center">
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Location & Map</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮地點與交通地圖</h2>
+                <p class="text-sm text-earth-brown/80 mt-1">一森 Evermore Wedding（彰化縣田尾鄉田尾村公園路一段171巷30弄75號旁）</p>
+            </div>
+
+            <!-- Fixed Embedded Google Map -->
+            <div class="bg-cream-card p-4 rounded-3xl border border-gold/30 shadow-sm space-y-3">
+                <div class="text-xs font-english text-gold uppercase tracking-wider text-center font-bold">
+                    <i class="fa-solid fa-map-location-dot mr-1"></i> Google Maps Navigation
+                </div>
+                <div class="w-full h-80 sm:h-96 rounded-2xl overflow-hidden border border-gold/20 shadow-inner">
+                    <iframe 
+                        title="Google Map Venue Location"
+                        src="https://maps.google.com/maps?q=%E4%B8%80%E6%A3%AE+EVERMORE+WEDDING&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+                <div class="text-center pt-2">
+                    <a href="https://maps.google.com/?q=一森+EVERMORE+WEDDING" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-wine text-cream hover:bg-wine/90 transition shadow-md text-sm font-medium">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i> 在 Google 地圖開啟全螢幕導航
+                    </a>
+                </div>
+            </div>
+
+            <!-- Illustrated Map Graphic -->
+            <div class="bg-cream-card p-4 md:p-6 rounded-3xl border border-gold/30 shadow-sm relative overflow-hidden">
+                <div class="text-xs text-center font-english text-gold mb-3 uppercase tracking-wider font-bold">
+                    <i class="fa-solid fa-square-parking mr-1"></i> 周邊交通與停車指示 (Parking & Route Map)
+                </div>
+
+                <!-- Detailed Route & Parking Breakdown -->
+                <div class="mt-6 space-y-3">
+                    <h3 class="font-bold text-wine text-base border-b border-gold/20 pb-2 flex items-center justify-between">
+                        <span><i class="fa-solid fa-route text-sage mr-2"></i>交通車程與停車場資訊</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs md:text-sm text-earth-brown">
+                        
+                        <!-- Item 1 -->
+                        <div class="bg-[#FAF6EE] p-3 rounded-xl border border-gold/20 flex items-center justify-between shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold">高鐵</span>
+                                <div>
+                                    <div class="font-bold text-wine">彰化高鐵站</div>
+                                    <div class="text-[11px] text-earth-brown/70">車程約 12 分鐘</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div class="bg-[#FAF6EE] p-3 rounded-xl border border-gold/20 flex items-center justify-between shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold">國一</span>
+                                <div>
+                                    <div class="font-bold text-wine">往國道一號</div>
+                                    <div class="text-[11px] text-earth-brown/70">車程約 9 分鐘</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div class="bg-[#FAF6EE] p-3 rounded-xl border border-gold/20 flex items-center justify-between shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-sage text-white text-xs px-2 py-0.5 rounded-full font-bold">國三</span>
+                                <div>
+                                    <div class="font-bold text-wine">往公路花園 / 台76 / 國三</div>
+                                    <div class="text-[11px] text-earth-brown/70">車程約 12 分鐘</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <a href="https://www.google.com/maps/search/?api=1&query=一森+EVERMORE+WEDDING" target="_blank" class="bg-[#FAF6EE] hover:bg-sage-light/50 transition p-3 rounded-xl border border-gold/20 flex items-center justify-between group shadow-sm">
+                            <div class="flex items-start gap-2.5">
+                                <span class="bg-wine text-white text-xs px-2 py-0.5 rounded-full font-bold">停車</span>
+                                <div>
+                                    <div class="font-bold text-wine group-hover:text-wine/80">一森專屬停車場</div>
+                                    <div class="text-[11px] text-earth-brown/70">位於振華路旁，停車後步行即達</div>
+                                </div>
+                            </div>
+                            <span class="text-xs bg-cream border border-gold/40 px-2.5 py-1 rounded-lg text-wine font-medium shrink-0 group-hover:bg-wine group-hover:text-cream transition flex items-center gap-1">
+                                <i class="fa-solid fa-location-arrow text-[10px]"></i> 導航
+                            </span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 4: Vendor (婚禮合作廠商介紹) -->
+        <section id="page-vendor" class="hidden space-y-8">
+            <div class="text-center">
+                <span class="font-english text-sm text-gold tracking-widest uppercase">Wedding Partners</span>
+                <h2 class="text-2xl md:text-3xl font-bold text-wine mt-1">婚禮合作廠商介紹</h2>
+                <p class="text-sm text-earth-brown/80 mt-1">感謝所有優秀夥伴的傾力協助，打造屬於我們的夢幻婚禮</p>
+            </div>
+
+            <div class="space-y-8 max-w-3xl mx-auto">
+                <!-- Firm 1 -->
+                <div class="bg-cream-card p-4 sm:p-6 rounded-3xl border border-gold/30 shadow-sm transition hover:shadow-md">
+                    <div class="text-center sm:text-left mb-4">
+                        <span class="font-english text-xs text-gold font-semibold tracking-wider uppercase">PARTNER</span>
+                        <h3 class="text-xl font-bold text-wine">婚禮廠商資訊</h3>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-gold/20 shadow-inner bg-[#FAF6EE]">
+                        <img src="Firm1.jpg" alt="Wedding Vendor 1" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x600/FAF6EE/5C2C2E?text=Firm1.jpg';">
+                    </div>
+                </div>
+
+                <!-- Firm 2 -->
+                <div class="bg-cream-card p-4 sm:p-6 rounded-3xl border border-gold/30 shadow-sm transition hover:shadow-md">
+                    <div class="text-center sm:text-left mb-4">
+                        <span class="font-english text-xs text-gold font-semibold tracking-wider uppercase">PARTNER</span>
+                        <h3 class="text-xl font-bold text-wine">婚禮廠商資訊</h3>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-gold/20 shadow-inner bg-[#FAF6EE]">
+                        <img src="Firm2.jpg" alt="Wedding Vendor 2" class="w-full h-auto object-cover" onerror="this.onerror=null; this.src='https://placehold.co/800x600/FAF6EE/5C2C2E?text=Firm2.jpg';">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-cream-card border-t border-gold/20 py-8 text-center text-xs text-earth-brown/70 space-y-2">
+        <div class="font-english text-base text-wine font-semibold">Jill & Jerry Wedding Day</div>
+        <p>2026.10.17 @ 一森 Evermore Wedding</p>
+        <p class="text-[10px] text-gold uppercase tracking-widest">Designed with love for Cheng Fu & Chih Fan</p>
+    </footer>
+
+    <script>
+        // Tab Navigation Logic
+        function switchTab(tabName) {
+            const tabs = ['home', 'faq', 'map', 'vendor'];
+            
+            tabs.forEach(t => {
+                const pageEl = document.getElementById(`page-${t}`);
+                const tabBtn = document.getElementById(`tab-${t}`);
+                
+                if (t === tabName) {
+                    if (pageEl) pageEl.classList.remove('hidden');
+                    if (tabBtn) tabBtn.classList.add('active');
+                } else {
+                    if (pageEl) pageEl.classList.add('hidden');
+                    if (tabBtn) tabBtn.classList.remove('active');
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Accordion Toggle
+        function toggleAccordion(buttonEl) {
+            const content = buttonEl.nextElementSibling;
+            const icon = buttonEl.querySelector('.fa-chevron-down');
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.accordion-header .fa-chevron-down').forEach(i => i.style.transform = 'rotate(0deg)');
+
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Wedding Countdown Timer (Target: 2026-10-17 18:00:00)
+        function updateCountdown() {
+            const weddingDate = new Date('2026-10-17T18:00:00').getTime();
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = `<div class="text-wine font-bold text-lg py-2">婚禮盛宴進行中！歡迎同樂！</div>`;
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days;
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 </body>
 </html>
